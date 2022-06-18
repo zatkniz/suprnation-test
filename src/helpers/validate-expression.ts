@@ -17,7 +17,8 @@ export const validateExpression = (expression: string): boolean => {
    * I spent a lot of time trying to figure out how to do it, and i would run out time.
    * Sorry for that.
    */
-  const regex = /^(\d*(\d\.\d)?[+-/*()]?((sin|cos|tan)(\(\d*(\d\.\d)?\)))?)*$/;
+  const regex =
+    /^(\d*(\d\.\d)?[+-/*()]?((sin|cos|tan)(\(\d*(\d\.\d)?\)))?)*(\d|\))$/;
 
   /**
    * Executes the regex.
