@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import EvaluationPage from "../views/EvaluationPage.vue";
+import CalculatorPage from "../views/CalculatorPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/calculator",
     name: "calculator",
-    component: EvaluationPage,
+    component: CalculatorPage,
   },
 ];
 

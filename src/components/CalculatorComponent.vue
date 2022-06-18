@@ -9,7 +9,7 @@
     <small v-if="typeof error == 'string'">{{ error }}</small>
     <h4 v-else>{{ result }}</h4>
   </div>
-  <div class="mt-4">
+  <div class="mt-4" v-if="history.length > 0">
     <h2>History</h2>
     <ol>
       <li v-for="(item, index) in history" :key="index">
