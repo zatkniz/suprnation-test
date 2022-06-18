@@ -6,21 +6,19 @@ import { validateExpression } from "./validate-expression";
  * @param {string} expression - The expression to be evaluated.
  * @returns A boolean value
  */
-export const evaluateExpression = (expression: string): boolean => {
+export const evaluateExpression = (expression: string): boolean | string => {
   /**
    * First we check if the parenthesis are closed.
    */
   if (!areAllParenthesisClosed(expression)) {
-    console.error("Opening and closing parenthesis not matching");
-    return false;
+    return "Opening and closing parenthesis not matching";
   }
 
   /**
    * Then we check if the expression is valid.
    */
   if (!validateExpression(expression)) {
-    console.error("The expression is not valid");
-    return false;
+    return "The expression is not valid";
   }
 
   return true;
