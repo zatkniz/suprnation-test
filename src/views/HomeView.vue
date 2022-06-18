@@ -1,7 +1,9 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+  <div class="home h-full">
+    <Calculator />
   </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts" setup>
+import Calculator from "@/components/CalculatorComponent.vue";
+</script>
