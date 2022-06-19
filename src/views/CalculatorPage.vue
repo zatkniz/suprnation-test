@@ -19,12 +19,12 @@
         <span class="text-white">{{ item }}</span>
       </div>
     </div>
-    <!-- {{ calculationValues }}
-    {{ summary }} -->
   </div>
 </template>
 
 <script lang="ts" setup>
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { getRandomNumber } from "@/services/random-number";
 import { ref } from "@vue/reactivity";
 import { computed, Ref } from "vue";
 
@@ -54,28 +54,44 @@ const calculatorResult: Ref<string> = ref("0");
 const calculationValues: Ref<string[]> = ref([]);
 const itemPushed: Ref<boolean> = ref(false);
 
-const summary = computed(() => {
-  return calculationValues.value.reduce(
-    (acc: number, curr: string, index: number) => {
-      if (!isNaN(+curr)) {
-        switch (calculationValues.value[index - 1]) {
-          case "+":
-            return +acc + +curr;
-          case "-":
-            return +acc - +curr;
-          case "*":
-            return +acc * +curr;
-          case "/":
-            return +acc / +curr;
-          default:
-            return +acc;
-        }
-      }
+try {
+  /**
+   * Fetches the random number from the API
+   * But throws CORS error so its been commented out
+   */
+  //   const { data } = await getRandomNumber();
+} catch (error) {
+  console.log(error);
+}
 
-      return !isNaN(+curr) ? acc + +curr : acc;
-    },
-    0
-  );
+const summary = computed(() => {
+  return calculationValues.value
+    .join()
+    .match(/[+\\-]*(\.\d+|\d+(\.\d+)?)/g)
+    ?.reduce((acc: number, curr: string) => {
+      return acc + +curr;
+    }, 0);
+  //   return calculationValues.value.reduce(
+  //     (acc: number, curr: string, index: number) => {
+  //       if (!isNaN(+curr)) {
+  //         switch (calculationValues.value[index - 1]) {
+  //           case "+":
+  //             return +acc + +curr;
+  //           case "-":
+  //             return +acc - +curr;
+  //           case "*":
+  //             return +acc * +curr;
+  //           case "/":
+  //             return +acc / +curr;
+  //           default:
+  //             return +acc;
+  //         }
+  //       }
+
+  //       return !isNaN(+curr) ? acc + +curr : acc;
+  //     },
+  //     0
+  //   );
 });
 
 const calculateValue = (item: string): void => {
@@ -87,8 +103,8 @@ const calculateValue = (item: string): void => {
     }
     itemPushed.value = false;
   } else {
-    calculationValues.value.push(calculatorResult.value);
-    calculationValues.value.push(item);
+    calculationValues.value.push(item + calculatorResult.value);
+    // calculationValues.value.push(item);
     itemPushed.value = true;
     calculatorResult.value = summary.value + "";
   }
